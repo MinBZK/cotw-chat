@@ -1,0 +1,10 @@
+# Renders templates/crd-trust.cert-manager.io_bundles.yaml. Explicit so a chart
+# default change can't silently drop the Bundle CRD.
+crds:
+  enabled: true
+
+# Trust source namespace, where cert-manager publishes CA bundles. Defaults to
+# plain "cert-manager", which AppProject destinations (cotw-*) rejects.
+app:
+  trust:
+    namespace: cotw-cert-manager

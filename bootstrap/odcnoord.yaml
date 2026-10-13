@@ -1,0 +1,35 @@
+---
+# Root Application (app-of-apps): the only manifest that is applied to the
+# cluster manually. ArgoCD discovers every other Application and Applicationset from this repo.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app
+  namespace: cotw-argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/background
+spec:
+  project: cotw-app
+  sources:
+    - repoURL: ssh://git@code.overheid.nl/MinBZK/cotw-chat.git
+      name: applications
+      targetRevision: main
+      path: clusters/odcnoord
+      directory:
+        recurse: true
+        include: '**/*-applicationset.yaml'
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cotw-default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 5
+      backoff:
+        duration: 15s
+        factor: 2
+        maxDuration: 3m
+    syncOptions:
+      - ServerSideApply=true

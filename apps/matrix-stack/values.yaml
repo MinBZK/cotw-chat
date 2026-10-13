@@ -1,0 +1,90 @@
+serverName: matrix.example.com
+
+# Host your own Postgres: see postgres-synapse.yaml / postgres-mas.yaml.
+postgres:
+  enabled: false
+
+# No cert-manager or tlsSecret is configured yet, so leave TLS off rather than
+# emitting Ingresses with a TLS block and no secretName.
+ingress:
+  tlsEnabled: false
+
+# Element Call / LiveKit are excluded for now (see README).
+matrixRTC:
+  enabled: false
+
+synapse:
+  ingress:
+    host: synapse.matrix.example.com
+  postgres:
+    host: synapse-rw
+    port: 5432
+    user: synapse
+    database: synapse
+    password:
+      secret: synapse-database
+      secretKey: password
+  redisOrValkey:
+    host: valkey.cotw-valkey.svc.cluster.local
+    port: 6379
+  # openshift Security Context
+  podSecurityContext:
+    runAsUser: null
+    runAsGroup: null
+    fsGroup: null
+
+elementWeb:
+  ingress:
+    host: element.matrix.example.com
+  # openshift Security Context
+  podSecurityContext:
+    runAsUser: null
+    runAsGroup: null
+    fsGroup: null
+
+matrixAuthenticationService:
+  ingress:
+    host: mas.matrix.example.com
+  postgres:
+    host: mas-rw
+    port: 5432
+    user: mas
+    database: mas
+    password:
+      secret: mas-database
+      secretKey: password
+  # openshift Security Context
+  podSecurityContext:
+    runAsUser: null
+    runAsGroup: null
+    fsGroup: null
+
+elementAdmin:
+  ingress:
+    host: admin.matrix.example.com
+  # openshift Security Context
+  podSecurityContext:
+    runAsUser: null
+    runAsGroup: null
+    fsGroup: null
+
+haproxy:
+  # openshift Security Context
+  podSecurityContext:
+    runAsUser: null
+    runAsGroup: null
+    fsGroup: null
+
+initSecrets:
+  # openshift Security Context
+  podSecurityContext:
+    runAsUser: null
+    runAsGroup: null
+    fsGroup: null
+
+deploymentMarkers:
+  # openshift Security Context
+  podSecurityContext:
+    runAsUser: null
+    runAsGroup: null
+    fsGroup: null

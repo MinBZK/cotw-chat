@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: cotw-matrix-stack
+
+resources:
+  - secret-synapse.yaml
+  - secret-mas.yaml
+  - postgres-synapse.yaml
+  - postgres-mas.yaml
+
+# Argo CD sync waves: credentials, then the CNPG Clusters (Argo's built-in
+# postgresql.cnpg.io/Cluster health check holds this wave until Postgres is ready).
+patches:
+  - patch: |
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: synapse-database
+        annotations:
+          argocd.argoproj.io/sync-wave: "-2"
+  - patch: |
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: mas-database
+        annotations:
+          argocd.argoproj.io/sync-wave: "-2"
+  - patch: |
+      apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      metadata:
+        name: synapse
+        annotations:
+          argocd.argoproj.io/sync-wave: "-1"
+  - patch: |
+      apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      metadata:
+        name: mas
+        annotations:
+          argocd.argoproj.io/sync-wave: "-1"
+
+helmCharts:
+  - name: matrix-stack
+    repo: oci://ghcr.io/element-hq/ess-helm/
+    version: 26.10.0
+    releaseName: matrix-stack
+    valuesFile: values.yaml

@@ -1,0 +1,3 @@
+# CRDs are in templates/, gated by installCRDs. Explicit so a default change
+# can't silently drop ExternalSecret/ClusterSecretStore/SecretStore types.
+installCRDs: true

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "formatter": true,
+  "permission": {
+    "read": {
+      "*": "allow",
+      "keys.txt": "deny"
+    },
+    "bash": {
+      "*": "ask",
+      "git *": "deny",
+      "git status *": "allow",
+      "git log *": "allow",
+      "git grep *": "allow",
+      "git diff *": "allow",
+      "rm *": "deny",
+      "grep *": "allow",
+      "tail *": "allow",
+      "ls *": "allow",
+      "pwd *": "allow",
+      "head *": "allow",
+      "find *": "allow",
+      "sort *": "allow",
+      "rg *": "allow",
+      "printf *": "allow",
+      "sed *": "allow",
+      "which *": "allow",
+      "wc *": "allow",
+      "echo *": "allow",
+      "diff *": "allow",
+      "cat *": "allow",
+      "kubectl *": "deny",
+      "kubectl exec *": "ask",
+      "kubectl describe *": "allow",
+      "kubectl get *": "allow",
+      "kubectl events *": "allow",
+      "kubectl api-resources *": "allow",
+      "kubectl api-versions *": "allow",
+      "kubectl explain *": "allow",
+      "kubectl logs *": "allow",
+      "helm *": "deny",
+      "helm template *": "allow",
+      "helm pull *": "allow",
+      "helm search *": "allow",
+      "tar *": "allow"
+    },
+    "grep": {
+      "*": "allow"
+    },
+    "glob": {
+      "*": "allow"
+    },
+    "edit": {
+      "*": "ask",
+      "apps/*": "allow",
+      "clusters/*": "allow",
+      "/tmp/opencode-scratch/**": "allow"
+    },
+    "external_directory": {
+      "*": "deny",
+      "/tmp/opencode-scratch/**": "allow"
+    },
+    "doom_loop": "deny"
+  }
+}

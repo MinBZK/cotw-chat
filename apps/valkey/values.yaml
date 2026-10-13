@@ -1,0 +1,33 @@
+image:
+  registry: "docker.io"
+
+
+imagePullSecrets: []
+
+networkPolicy: {}
+
+# Valkey is memory-bound; limits.memory is what keeps an OOM from taking the node.
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    memory: 512Mi
+
+dataStorage:
+  enabled: true
+  keepPvc: true
+  requestedSize: 5Gi
+
+
+replica:
+  enabled: true
+
+  # Number of replica instances (total pods = replicas + 1 master)
+  replicas: 2
+
+  persistence:
+    size: 5Gi
+
+podDisruptionBudget:
+  enabled: true

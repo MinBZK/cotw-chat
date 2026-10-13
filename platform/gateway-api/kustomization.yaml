@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# SIG Network ships no Helm chart for the Gateway API CRDs by design -- see
+# kubernetes-sigs/gateway-api#4809. The standard-install.yaml release asset is
+# marked immutable, so this pinned URL is stable. Standard channel only.
+resources:
+  - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.3/standard-install.yaml

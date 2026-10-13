@@ -1,0 +1,43 @@
+replicas: 2
+
+image:
+  repository: quay.io/keycloak/keycloak
+
+imagePullSecrets: []
+
+# openshift Security Context
+podSecurityContext: null
+securityContext: null
+
+# requests.cpu is required: autoscaling below targets CPU utilization, and an
+# HPA can't compute utilization from a pod with no CPU request.
+resources:
+  requests:
+    cpu: 250m
+    memory: 1Gi
+  limits:
+    memory: 2Gi
+
+podDisruptionBudget:
+  minAvailable: 1
+
+ingress:
+  enabled: true
+
+  console:
+    enabled: true
+
+database:
+  vendor: postgres
+  hostname: keycloak-rw
+  port: 5432
+  database: keycloak
+  username: keycloak
+  existingSecret: keycloak-database
+  existingSecretKey: password
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80

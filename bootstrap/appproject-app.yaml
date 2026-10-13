@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cotw-app
+  namespace: cotw-argocd
+spec:
+  description: cotw chat
+  destinations:
+  - name: in-cluster
+    namespace: cotw-*
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - ssh://git@code.overheid.nl/MinBZK/cotw-chat.git

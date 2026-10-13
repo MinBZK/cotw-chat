@@ -1,0 +1,6 @@
+creation_rules:
+  - path_regex: \.yaml$
+    encrypted_regex: ^(data|stringData)$
+    mac_only_encrypted: true
+    age: >-
+      age1fcjk2tfref5c2syr0tf040p7h2phrqnzdex6twcmvhu9wdgq4y5sxdzuwn

@@ -1,0 +1,9 @@
+# cert-manager ships its CRDs in templates/, gated off by default. Without this
+# the operator installs with no Certificate/Issuer/ClusterIssuer types at all.
+crds:
+  enabled: true
+
+# Defaults to kube-system, which AppProject destinations (cotw-*) rejects.
+global:
+  leaderElection:
+    namespace: cotw-cert-manager

@@ -1,0 +1,11 @@
+# CRDs live in templates/crds/crds.yaml behind this gate. Explicit so a chart
+# default change can't drop the Cluster/Pool/etc. types.
+crds:
+  create: true
+
+# containerSecurityContext defaults to runAsUser/runAsGroup 10001, which
+# OpenShift restricted-v2 rejects outright. Nulling drops the keys so the
+# namespace assigns the UID; runAsNonRoot and seccompProfile are left intact.
+containerSecurityContext:
+  runAsUser: null
+  runAsGroup: null

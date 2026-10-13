@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cotw-platform-appset
+  namespace: cotw-argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - product: cert-manager
+        rev: main
+      - product: cloudnative-pg
+        rev: main
+      - product: external-secrets
+        rev: main
+      - product: gateway-api
+        rev: main
+      - product: trust-manager
+        rev: main
+  template:
+    metadata:
+      name: 'cotw-platform-{{.product}}'
+    spec:
+      project: cotw-platform
+      source:
+        repoURL: ssh://git@code.overheid.nl/MinBZK/cotw-chat.git
+        targetRevision: '{{.rev}}'
+        path: 'platform/{{.product}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: cotw-{{.product}}
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        retry:
+          limit: 10
+          backoff:
+            duration: 15s
+            factor: 2
+            maxDuration: 15m
+        syncOptions:
+          - ServerSideApply=true
+          - CreateNamespace=true
+          - SkipDryRunOnMissingResource=true
+  syncPolicy:
+    applicationsSync: create-update
