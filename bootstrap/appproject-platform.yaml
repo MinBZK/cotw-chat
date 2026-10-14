@@ -31,4 +31,4 @@ spec:
     kind: Namespace
     name: cotw-*
   sourceRepos:
-  - ssh://git@github.com/MinBZK/cotw-chat.git
+  - https://github.com/MinBZK/cotw-chat.git

@@ -9,9 +9,9 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io/background
 spec:
-  project: cotw-app
+  project: default
   sources:
-    - repoURL: ssh://git@github.com/MinBZK/cotw-chat.git
+    - repoURL: https://github.com/MinBZK/cotw-chat.git
       name: applications
       targetRevision: main
       path: clusters/odcnoord-community-pioniers

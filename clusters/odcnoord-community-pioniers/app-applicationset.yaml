@@ -21,7 +21,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: ssh://git@github.com/MinBZK/cotw-chat.git
+        repoURL: https://github.com/MinBZK/cotw-chat.git
         targetRevision: '{{.rev}}'
         path: 'apps/{{.product}}'
       destination:
