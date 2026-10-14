@@ -5,7 +5,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: root-app
-  namespace: cotw-argocd
+  namespace: cotw-pioniers-argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io/background
 spec:
@@ -14,13 +14,13 @@ spec:
     - repoURL: ssh://git@github.com/MinBZK/cotw-chat.git
       name: applications
       targetRevision: main
-      path: clusters/odcnoord
+      path: clusters/odcnoord-community-pioniers
       directory:
         recurse: true
         include: '**/*-applicationset.yaml'
   destination:
     server: https://kubernetes.default.svc
-    namespace: cotw-default
+    namespace: cotw-pioniers-argocd
   syncPolicy:
     automated:
       prune: true

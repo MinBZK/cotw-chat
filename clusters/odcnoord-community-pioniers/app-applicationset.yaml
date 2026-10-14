@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cotw-appset
+  namespace: cotw-pioniers-argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - product: matrix-stack
+        rev: main
+      - product: keycloak
+        rev: main
+      - product: valkey
+        rev: main
+  template:
+    metadata:
+      name: 'cotw-{{.product}}'
+    spec:
+      project: cotw-app
+      source:
+        repoURL: ssh://git@github.com/MinBZK/cotw-chat.git
+        targetRevision: '{{.rev}}'
+        path: 'apps/{{.product}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: cotw-pioniers-{{.product}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 10
+          backoff:
+            duration: 15s
+            factor: 2
+            maxDuration: 15m
+        syncOptions:
+          - ServerSideApply=false
+          - ClientSideApplyMigration=false
+          - SkipDryRunOnMissingResource=true
+  syncPolicy:
+    applicationsSync: create-update
