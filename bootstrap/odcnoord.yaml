@@ -11,7 +11,7 @@ metadata:
 spec:
   project: cotw-app
   sources:
-    - repoURL: ssh://git@code.overheid.nl/MinBZK/cotw-chat.git
+    - repoURL: ssh://git@github.com/MinBZK/cotw-chat.git
       name: applications
       targetRevision: main
       path: clusters/odcnoord
