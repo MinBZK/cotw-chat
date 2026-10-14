@@ -23,7 +23,7 @@ spec:
       source:
         repoURL: https://github.com/MinBZK/cotw-chat.git
         targetRevision: '{{.rev}}'
-        path: 'apps/{{.product}}'
+        path: 'apps/{{.product}}/overlays/odcrijswijk'
       destination:
         server: https://kubernetes.default.svc
         namespace: cotw-{{.product}}

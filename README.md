@@ -34,7 +34,7 @@ Argo CD is the only consumer of this repo; there is nothing to build or run loca
 
 * `bootstrap/` — applied to a cluster **once, by hand**: both AppProjects (`cotw`, `cotw-platform`) and the root Application (app-of-apps).
 * `clusters/<cluster>/` — two ApplicationSets per cluster:
-  * `app-applicationset.yaml` → one Application per workload, from `apps/{{.product}}`
+  * `app-applicationset.yaml` → one Application per workload, from `apps/{{.product}}/overlays/<cluster>`
   * `platform-applicationset.yaml` → one Application per operator, from `platform/{{.product}}`
 * `apps/<product>/` and `platform/<operator>/` — a kustomize project that inflates a pinned Helm chart, plus any extra manifests.
 
@@ -64,11 +64,11 @@ age-keygen -o keys.txt       # your own key
 Add your public key to `.sops.yaml`, then ask someone who already has access to re-encrypt the existing secrets. The private key lives in `keys.txt` (gitignored, mode 0600) — treat it as the only copy until you have a recovery plan.
 
 ```bash
-SOPS_AGE_KEY_FILE=$PWD/keys.txt sops --decrypt apps/keycloak/secret.yaml
+SOPS_AGE_KEY_FILE=$PWD/keys.txt sops --decrypt apps/keycloak/base/secret.yaml
 sops --set '["stringData"]["key"] "value"' <file>
 ```
 
-Encrypted today: `apps/keycloak/secret.yaml`, `apps/matrix-stack/secret-synapse.yaml`, `apps/matrix-stack/secret-mas.yaml`.
+Encrypted today: `apps/keycloak/base/secret.yaml`, `apps/matrix-stack/base/secret-synapse.yaml`, `apps/matrix-stack/base/secret-mas.yaml`.
 
 ## Argo CD
 
