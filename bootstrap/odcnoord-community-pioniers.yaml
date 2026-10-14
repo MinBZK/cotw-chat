@@ -17,7 +17,7 @@ spec:
       path: clusters/odcnoord-community-pioniers
       directory:
         recurse: true
-        include: '**/*-applicationset.yaml'
+        include: '*-applicationset.yaml'
   destination:
     server: https://kubernetes.default.svc
     namespace: cotw-pioniers-argocd
