@@ -3,4 +3,5 @@ creation_rules:
     encrypted_regex: ^(data|stringData)$
     mac_only_encrypted: true
     age: >-
-      age1fcjk2tfref5c2syr0tf040p7h2phrqnzdex6twcmvhu9wdgq4y5sxdzuwn
+      age1fcjk2tfref5c2syr0tf040p7h2phrqnzdex6twcmvhu9wdgq4y5sxdzuwn,
+      age1z2mu8wjwmxtutlfk73ryhnwe2jadg0yfvv3hxsehqmlew0ge3susgrtw8n
