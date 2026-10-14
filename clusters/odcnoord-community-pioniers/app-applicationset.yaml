@@ -19,7 +19,7 @@ spec:
     metadata:
       name: 'cotw-{{.product}}'
     spec:
-      project: cotw-app
+      project: default
       source:
         repoURL: ssh://git@github.com/MinBZK/cotw-chat.git
         targetRevision: '{{.rev}}'
